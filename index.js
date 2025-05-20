@@ -5,9 +5,14 @@ const app = express();
 const port = 3000;
 app.use(express.static('public'));
 
-app.get('/', async (req, res) => {
+
+app.get("/", (req, res) => {
+  res.render("index.ejs", { joke: "" });
+});
+
+app.get('/joke', async (req, res) => {
     try {
-        const result = await axios.get('https://v2.jokeapi.dev/joke/Any');
+        const result = await axios.get('https://v2.jokeapi.dev/joke/Any?type=single');
         res.render('index.ejs', {
             joke: result.data.joke,
         });
